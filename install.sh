@@ -14,7 +14,6 @@ param=$(echo "$1" | tr '[:upper:]' '[:lower:]')
 if [ "$param" = "shared" ]; then
     echo "Shared."
     cmake -Bbuild/library -H./Library -DCMAKE_INSTALL_PREFIX=$(pwd)/install -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON
-    
 else
     echo "Static."
     cmake -Bbuild/library -H./Library -DCMAKE_INSTALL_PREFIX=$(pwd)/install -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF
