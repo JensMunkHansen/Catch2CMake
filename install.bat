@@ -14,8 +14,9 @@ if %myArg% == shared (
   cmake -B build/library -H%~dp0/Library -DCMAKE_INSTALL_PREFIX=%~dp0/install
 )
 
-cmake --build build/library  --config Release --parallel 16 -- /m
-cmake --build build/library  --config Debug --parallel 16 -- /m
+cmake --build build/library  --config Release --parallel 16 -- -maxCpuCount:20
+cmake --build build/library  --config Debug --parallel 16 -- -maxCpuCount:20
+goto :eof
 
 :usage
 @echo Usage: %0 static/shared
