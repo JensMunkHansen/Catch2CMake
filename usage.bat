@@ -19,6 +19,7 @@ cmake --build build/usage --config Debug --parallel 8
 
 build\usage\Debug\main.exe
 build\usage\Release\main.exe
+goto eof
 
 :usage
 @echo Usage: %0 static/shared
