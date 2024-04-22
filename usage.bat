@@ -1,7 +1,7 @@
 @echo off
 rmdir /Q /S build\usage
 
-if [%1]==[] goto usage
+if [%1]==[] goto :usage
 
 set myArg=%1
 
@@ -19,7 +19,7 @@ cmake --build build/usage --config Debug --parallel 8
 
 build\usage\Debug\main.exe
 build\usage\Release\main.exe
-goto eof
+goto :eof
 
 :usage
 @echo Usage: %0 static/shared
