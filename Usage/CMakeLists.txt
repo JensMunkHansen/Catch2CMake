@@ -24,6 +24,14 @@ if (BUILD_SHARED_LIBS)
       $<TARGET_FILE_DIR:main>
       COMMAND_EXPAND_LISTS)
   endif()
+elseif(EMSCRIPTEN)
+  add_custom_command(TARGET main
+    POST_BUILD
+    COMMAND ${CMAKE_CROSSCOMPILING_EMULATOR} ${CMAKE_CURRENT_BINARY_DIR}/main.js
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+  )  
 endif()
 
-catch_discover_tests(main)
+if (NOT EMSCRIPTEN)
+  catch_discover_tests(main)
+endif()
