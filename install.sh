@@ -17,7 +17,7 @@ elif [ "$param" = "static" ]; then
     cmake --build build/library --parallel 16
 elif [ "$param" = "wasm" ]; then (
     echo "Emscripten."
-    source "/home/jmh/github/emsdk/emsdk_env.sh"
+    source "$HOME/github/emsdk/emsdk_env.sh"
     emcmake cmake -Bbuild/library -H./Library -DCMAKE_INSTALL_PREFIX=$(pwd)/install -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Debug
     cmake --build build/library --parallel 16
 )

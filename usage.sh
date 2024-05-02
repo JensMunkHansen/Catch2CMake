@@ -22,7 +22,7 @@ elif [ "$arg" = "shared" ]; then
 elif [ "$arg" = "wasm" ]; then
 (
     echo "Emscripten"
-    source "/home/jmh/github/emsdk/emsdk_env.sh"
+    source "$HOME/github/emsdk/emsdk_env.sh"
     emcmake cmake -Bbuild/usage -H./Usage -DCMAKE_FIND_ROOT_PATH=$(pwd)/install -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Debug
     cmake --build build/usage --parallel 16
 )
