@@ -32,6 +32,4 @@ elseif(EMSCRIPTEN)
   )  
 endif()
 
-if (NOT EMSCRIPTEN)
-  catch_discover_tests(main)
-endif()
+catch_discover_tests(main)
