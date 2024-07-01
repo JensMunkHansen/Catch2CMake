@@ -24,7 +24,7 @@ elif [ "$arg" = "wasm" ]; then
     echo "Emscripten"
     source "$HOME/github/emsdk/emsdk_env.sh"
     emcmake cmake -Bbuild/usage -H./Usage -DCMAKE_FIND_ROOT_PATH=$(pwd)/install -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Debug
-    cmake --build build/usage --parallel 16
+    cmake --build build/usage --parallel 16 --verbose
 )
 else
     echo "Invalid argument. Usage: $0 [wasm|static|shared]"
