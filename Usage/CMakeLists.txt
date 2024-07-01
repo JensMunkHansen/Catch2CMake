@@ -8,7 +8,7 @@ include(DumpVariables)
 message("CMAKE_FIND_ROOT_PATH: ${CMAKE_FIND_ROOT_PATH}")
 message("CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}")
 
-find_package(Catch2 REQUIRED)
+find_package(Catch2 3.5.2 EXACT REQUIRED)
 include(CTest)
 include(Catch)
 
@@ -20,19 +20,23 @@ add_executable(main main.cxx)
 target_link_libraries(main PRIVATE Catch2::Catch2WithMain)
 
 if (EMSCRIPTEN)
-set(ENTRY_JS main.js)
 
 set(emscripten_link_options)
 set(emscripten_compile_options)
 list(APPEND emscripten_link_options
-  "SHELL:-s --preload-file input.txt"
+  "SHELL:-s --preload-file assets"
   "-sEXCEPTION_CATCHING_ALLOWED=[..]"
   "-sENVIRONMENT=node"
   
 )
 endif()
 
-configure_file(input.txt "${CMAKE_CURRENT_BINARY_DIR}/input.txt")
+add_custom_target(build-time-make-directory ALL
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/assets)
+
+configure_file(input.txt ${CMAKE_CURRENT_BINARY_DIR}/assets/input.txt)
+configure_file(input2.txt ${CMAKE_CURRENT_BINARY_DIR}/assets/input2.txt)
+
 target_link_options(main
   PUBLIC
     ${emscripten_link_options}
@@ -50,6 +54,17 @@ if (BUILD_SHARED_LIBS)
       $<TARGET_FILE_DIR:main>
       COMMAND_EXPAND_LISTS)
   endif()
+elseif(EMSCRIPTEN)
+    add_custom_command( TARGET main POST_BUILD
+      COMMAND ${CMAKE_COMMAND} -E copy
+      ${CMAKE_CURRENT_SOURCE_DIR}/input.txt
+      $<TARGET_FILE_DIR:main>/assets
+      COMMAND_EXPAND_LISTS)
+    add_custom_command( TARGET main POST_BUILD
+      COMMAND ${CMAKE_COMMAND} -E copy
+      ${CMAKE_CURRENT_SOURCE_DIR}/input2.txt
+      $<TARGET_FILE_DIR:main>/assets
+      COMMAND_EXPAND_LISTS)
 elseif(0)#EMSCRIPTEN)
   add_custom_command(TARGET main
     POST_BUILD
