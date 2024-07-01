@@ -9,7 +9,6 @@ TEST_CASE("TestMe")
 
   if(!ifs)
     throw std::runtime_error(filepath + ": " + std::strerror(errno));
-#if 0
 
   auto end = ifs.tellg();
   ifs.seekg(0, std::ios::beg);
@@ -23,6 +22,5 @@ TEST_CASE("TestMe")
 
   if(!ifs.read((char*)buffer.data(), buffer.size()))
     throw std::runtime_error(filepath + ": " + std::strerror(errno));
-#endif
   REQUIRE(1 == 1);
 }
