@@ -27,7 +27,7 @@ elif [ "$param" = "static" ]; then
 elif [ "$param" = "wasm" ]; then (
     echo "Emscripten."
     source "/home/jmh/github/emsdk/emsdk_env.sh"
-    emcmake cmake -Bbuild/library -H./Library -DCMAKE_INSTALL_PREFIX=$(pwd)/install -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=$conf
+    emcmake cmake -Bbuild/library -H./Library -DCMAKE_INSTALL_PREFIX=$(pwd)/install -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=$conf -DCMAKE_CXX_FLAGS="-matomics -mbulk-memory"    
     cmake --build build/library --parallel 16
 )
 else

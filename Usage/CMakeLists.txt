@@ -25,9 +25,8 @@ set(emscripten_link_options)
 set(emscripten_compile_options)
 list(APPEND emscripten_link_options
   "SHELL:-s --preload-file assets"
-  "-sEXCEPTION_CATCHING_ALLOWED=[..]"
-  "-sENVIRONMENT=node"
-  
+#  "-sEXCEPTION_CATCHING_ALLOWED=[..]"
+#  "-sENVIRONMENT=node"
 )
 endif()
 
